@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/WingLim/caddy-webhook/webhooks"
+	"github.com/onodera-punpun/caddy-webhook/webhooks"
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
@@ -303,6 +303,7 @@ func getRepoNameFromURL(u string) (string, error) {
 	} else if strings.HasPrefix(u, "git") {
 		// Get repo name from ssh link.
 		// git@github.com:WingLim/caddy-webhook.git
+
 		pathSegments := strings.Split(u, "/")
 		name = pathSegments[len(pathSegments)-1]
 	} else {
