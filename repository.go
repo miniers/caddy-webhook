@@ -104,7 +104,7 @@ func (r *Repo) Setup(ctx context.Context) error {
 
 	r.log.Info("setting up repository successful")
 	if r.cmd != nil {
-		go r.cmd.Run(r.log)
+		go r.cmd.Run()
 	}
 	return nil
 }
@@ -117,7 +117,7 @@ func (r *Repo) Update(ctx context.Context) error {
 	}
 
 	if r.cmd != nil {
-		go r.cmd.Run(r.log)
+		go r.cmd.Run()
 	}
 	if err != nil {
 		return err
