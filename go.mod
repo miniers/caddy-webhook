@@ -1,10 +1,10 @@
-module github.com/onodera-punpun/caddy-webhook
+module github.com/miniers/caddy-webhook
 
 go 1.19
 
 require (
 	github.com/alecthomas/assert v1.0.0
-	github.com/caddyserver/caddy/v2 v2.6.1
+	github.com/caddyserver/caddy/v2 v2.6.4
 	github.com/go-git/go-git/v5 v5.4.2
 	go.uber.org/zap v1.23.0
 )

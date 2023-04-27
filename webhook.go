@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/onodera-punpun/caddy-webhook/webhooks"
+	"github.com/miniers/caddy-webhook/webhooks"
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
