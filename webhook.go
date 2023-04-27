@@ -11,15 +11,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/miniers/caddy-webhook/webhooks"
-	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
-	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
+	"github.com/miniers/caddy-webhook/webhooks"
 	"go.uber.org/zap"
+	cryptossh "golang.org/x/crypto/ssh"
 )
 
 // Interface guards.
@@ -67,6 +66,9 @@ type WebHook struct {
 
 	// Path of private key, using to access git with ssh.
 	Key string `json:"key,omitempty"`
+
+	// Disable strict host key checking.
+	StrictHostKeyCheckingDisabled bool `json:"insecure,omitempty"`
 
 	// Password of private key.
 	KeyPassword string `json:"key_password,omitempty"`
@@ -161,6 +163,11 @@ func (w *WebHook) Provision(ctx caddy.Context) error {
 		publicKeys, err := ssh.NewPublicKeysFromFile("git", w.Key, w.KeyPassword)
 		if err != nil {
 			return err
+		}
+		if w.StrictHostKeyCheckingDisabled {
+			publicKeys.HostKeyCallbackHelper = ssh.HostKeyCallbackHelper{
+				HostKeyCallback: cryptossh.InsecureIgnoreHostKey(),
+			}
 		}
 		w.auth = publicKeys
 	}
