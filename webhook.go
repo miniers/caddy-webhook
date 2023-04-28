@@ -3,6 +3,7 @@ package caddy_webhook
 import (
 	"context"
 	"fmt"
+	"github.com/caddyserver/caddy/v2"
 	"io"
 	"net/http"
 	"net/url"
